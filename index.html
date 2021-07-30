@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ToDoList</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        <div class="wrapper">
+            <div class="add-item_form">
+                <!-- Vue - v-on shortland is @ -->
+                <input 
+                @keyup.enter=saveTask()
+                type="text" 
+                v-model="newTask" 
+                placeholder="Add new task">
+                <button 
+                @click=saveTask()
+                class="btn btn-primary">
+                +</button>
+            </div>
+            <ul>
+                <li v-for="task in list" :key="task.id">{{task.label}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="script.js"></script>
+</html>
