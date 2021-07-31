@@ -2,18 +2,20 @@
      data(){
          return{
              title:"Simple ToDoList",
+             show: false,
              newTask: '',
              list:[
-                 {id:1,label:'Create website'},
-                 {id:2,label:'Learn'},
-                 {id:3,label:'Clean room'},
+                 {id:1,label:"Clean room",done:true}
              ]
          }
      },
      methods: {
          saveTask() {
             this.list.push({id:this.list.lenght+1,label:this.newTask});
-            this.newTask="";
+            this.newTask='';
+         },
+         toggleDone(task){
+            task.done = !task.done;
          }
      }
  }).mount('#app')

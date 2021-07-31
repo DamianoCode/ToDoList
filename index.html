@@ -4,26 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Simple ToDoList</title>
 </head>
 <body>
-    <div id="app">
-        <h1>{{title}}</h1>
+    <div id="app" class="container">
+        <div class="header">
+            <h1>{{title}}</h1>
+            <button @click="show = !show" class="btn btn-secondary">
+                <span v-if="!show">Show</span>
+                <span v-else>Hide</span>
+            </button>
+        </div>
         <div class="wrapper">
-            <div class="add-item_form">
-                <!-- Vue - v-on shortland is @ -->
+            <div v-if="show" class="add-task_form">
+                <!-- Vue - v-on shortened is @ -->
+                <!-- Vue - v-bind shortened is : -->
                 <input 
-                @keyup.enter=saveTask()
+                class="task-input"
+                @keyup.enter.exact=saveTask()
                 type="text" 
                 v-model="newTask" 
                 placeholder="Add new task">
                 <button 
                 @click=saveTask()
+                :disabled="newTask.length < 3"
                 class="btn btn-primary">
                 +</button>
             </div>
-            <ul>
-                <li v-for="task in list" :key="task.id">{{task.label}}</li>
+            <p v-if="list.length === 0">No tasks to be done! Good job :)</p>
+            <ul style="list-style-type: none;">
+                <!-- :class two methods 
+                Object method - "{className:param,className2:param}" 
+                Array method "[param ? 'className className1' : 'className2']"-->
+                <li 
+                v-for="task in list" 
+                @click=toggleDone(task)
+                :key="task.id"
+                :class="[task.done ? 'strikeout text-gray' : '',
+                        'mouseover'    
+                        ]"
+                >
+                {{task.label}}</li>
             </ul>
         </div>
     </div>
